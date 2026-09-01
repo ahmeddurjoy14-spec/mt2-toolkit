@@ -60,6 +60,8 @@ void initBeaconFrame(const uint8_t* bssid, const char* ssid, uint8_t channel) {
 }
 
 inline void sendBeaconFrame() {
+  // Ensure STATIONAP_MODE for wifi_send_pkt_freedom
+  wifi_set_opmode(STATIONAP_MODE);
   wifi_send_pkt_freedom(beaconPkt, 50, 0);
 }
 
@@ -106,6 +108,8 @@ void initProbeResp(const uint8_t* bssid, const char* ssid, uint8_t channel) {
 }
 
 inline void sendProbeResp() {
+  // Ensure STATIONAP_MODE for wifi_send_pkt_freedom
+  wifi_set_opmode(STATIONAP_MODE);
   wifi_send_pkt_freedom(probeRespPkt, 50, 0);
 }
 

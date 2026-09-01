@@ -20,6 +20,11 @@ extern uint8_t targetChan;
 // --- Passive scan ---
 void performScan() {
   scanCount = 0;
+  
+  // Ensure STATIONAP_MODE for wifi_send_pkt_freedom
+  wifi_set_opmode(STATIONAP_MODE);
+  wifi_set_opmode_current(STATIONAP_MODE);
+  
   // Disconnect STA mode so promisc mode is clean
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
@@ -37,6 +42,10 @@ void performScan() {
     scanCount++;
   }
   WiFi.scanDelete();
+  
+  // CRITICAL: Restore STATIONAP_MODE after scan for wifi_send_pkt_freedom
+  wifi_set_opmode(STATIONAP_MODE);
+  wifi_set_opmode_current(STATIONAP_MODE);
 }
 
 void lockTargetByIdx(int idx) {

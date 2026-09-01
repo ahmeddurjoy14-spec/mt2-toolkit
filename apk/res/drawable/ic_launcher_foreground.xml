@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background gradient: dark navy to black -->
+    <path
+        android:pathData="M0,0h108v108h-108z"
+        android:fillColor="#0A0E1A"/>
+
+    <!-- Outer glow ring -->
+    <path
+        android:pathData="M54,18m-30,0a30,30 0 1,0 60,0a30,30 0 1,0 -60,0"
+        android:strokeColor="#FF1744"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"/>
+
+    <!-- WiFi waves (3 arcs, top right) -->
+    <path
+        android:pathData="M70,30 a12,12 0 0,1 18,0"
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M67,33 a8,8 0 0,1 14,0"
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M64,36 a4,4 0 0,1 10,0"
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"/>
+
+    <!-- Skull outline (centered) -->
+    <path
+        android:pathData="M40,52
+                          C40,40 47,32 54,32
+                          C61,32 68,40 68,52
+                          L68,68
+                          C68,72 64,74 62,76
+                          L62,84
+                          C62,86 60,88 58,88
+                          L50,88
+                          C48,88 46,86 46,84
+                          L46,76
+                          C44,74 40,72 40,68
+                          Z"
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#FF1744"
+        android:strokeWidth="1.5"/>
+
+    <!-- Left eye socket -->
+    <path
+        android:pathData="M48,52 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
+        android:fillColor="#0A0E1A"/>
+
+    <!-- Right eye socket -->
+    <path
+        android:pathData="M52,52 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
+        android:fillColor="#0A0E1A"/>
+
+    <!-- Eye glow (red dots) -->
+    <path
+        android:pathData="M51,52 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0"
+        android:fillColor="#FF1744"/>
+    <path
+        android:pathData="M55,52 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0"
+        android:fillColor="#FF1744"/>
+
+    <!-- Nose triangle -->
+    <path
+        android:pathData="M54,60 L52,66 L56,66 Z"
+        android:fillColor="#0A0E1A"/>
+
+    <!-- Teeth gaps (mouth) -->
+    <path
+        android:pathData="M48,74 L60,74 L60,76 L48,76 Z"
+        android:fillColor="#0A0E1A"/>
+    <path
+        android:pathData="M51,74 L51,80"
+        android:strokeColor="#0A0E1A"
+        android:strokeWidth="1.5"/>
+    <path
+        android:pathData="M54,74 L54,80"
+        android:strokeColor="#0A0E1A"
+        android:strokeWidth="1.5"/>
+    <path
+        android:pathData="M57,74 L57,80"
+        android:strokeColor="#0A0E1A"
+        android:strokeWidth="1.5"/>
+
+    <!-- Bottom: "MT2" text in red, no actual text (vector only) -->
+    <!-- Crossed bones under skull -->
+    <path
+        android:pathData="M30,82 L36,76 M30,82 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 M36,76 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M78,82 L72,76 M78,82 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 M72,76 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"/>
+</vector>

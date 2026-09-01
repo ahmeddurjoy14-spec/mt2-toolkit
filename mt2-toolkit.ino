@@ -542,6 +542,9 @@ void cmdTDeauth() {
 
 // Send targeted deauth to a specific client MAC
 inline void sendTargetedDeauth() {
+  // CRITICAL: Ensure STATIONAP_MODE for wifi_send_pkt_freedom
+  wifi_set_opmode(STATIONAP_MODE);
+  
   // Patch destination = client MAC
   memcpy(deauthPkt + 4, targetClientMac, 6);
   uint16_t reason = reasonCodes[reasonIdx];
@@ -617,6 +620,8 @@ void initProbeRequest(const char* ssid, uint8_t chan) {
 
 inline void sendProbeRequest() {
   if (probeRequestReady) {
+    // Ensure STATIONAP_MODE for wifi_send_pkt_freedom
+    wifi_set_opmode(STATIONAP_MODE);
     wifi_send_pkt_freedom(probeReqPkt, 50, 0);
   }
 }
@@ -670,6 +675,8 @@ void initProbeResponse(const char* ssid, uint8_t chan) {
 
 inline void sendProbeResponse() {
   if (probeRespReady) {
+    // Ensure STATIONAP_MODE for wifi_send_pkt_freedom
+    wifi_set_opmode(STATIONAP_MODE);
     wifi_send_pkt_freedom(probeRespPkt, 50, 0);
   }
 }

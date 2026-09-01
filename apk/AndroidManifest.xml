@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mt2.attack"
+    android:versionCode="3"
+    android:versionName="3.0">
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="29" />
+
+    <uses-feature android:name="android.hardware.usb.host" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".ConnectActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/usb_device_filter" />
+        </activity>
+
+        <activity
+            android:name=".ScanActivity"
+            android:label="Step 2 - Scan"
+            android:launchMode="singleTop"
+            android:exported="false"/>
+
+        <activity
+            android:name=".AttackActivity"
+            android:label="Step 3 - Attack"
+            android:launchMode="singleTop"
+            android:exported="false"/>
+
+        <!-- USB permission broadcast receiver -->
+        <receiver
+            android:name=".UsbPermissionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.mt2.attack.USB_PERMISSION" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

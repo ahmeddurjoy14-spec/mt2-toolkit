@@ -16,16 +16,16 @@ jobs:
       run: |
         curl -fsSL https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz | tar xz
         ./arduino-cli config init
-        ./arduino-cli core update-index --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
     
-    - name: Install ESP8266 core v2.6.3
+    - name: Install ESP8266 core v2.4.2 (last working with full wifi_send)
       run: |
-        ./arduino-cli core install esp8266:esp8266@2.6.3 --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
+        ./arduino-cli core update-index --additional-urls https://raw.githubusercontent.com/esp8266/Arduino/2.4.2/package_esp8266com_index.json
+        ./arduino-cli core install esp8266:esp8266:2.4.2 --additional-urls https://raw.githubusercontent.com/esp8266/Arduino/2.4.2/package_esp8266com_index.json
     
     - name: Compile firmware
       run: |
         ./arduino-cli compile \
-          --fqbn esp8266:esp8266:nodemcuv2 \
+          --fqbn esp8266:esp8266:nodemcuv2:xtal=80,vt=flash,exception=disabled,stacksmash=disabled,ssl=all,mem512=0,ip=lm2f,clear=0 \
           --warnings all \
           --output-dir build \
           ./
@@ -33,5 +33,5 @@ jobs:
     - name: Upload firmware
       uses: actions/upload-artifact@v4
       with:
-        name: MT2-Firmware
+        name: MT2-Firmware-v242
         path: build/**/*.bin
