@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">MT2 Attack Console</string>
-    <string name="app_subtitle">WiFi Penetration Testing</string>
-    <string name="status_disconnected">⚠ DISCONNECTED</string>
-    <string name="status_connected">✓ CONNECTED @ 115200</string>
-    <string name="version">v2.0 • Cyber Edition</string>
-</resources>
