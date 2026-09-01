@@ -16,11 +16,11 @@ jobs:
       run: |
         curl -fsSL https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz | tar xz
         ./arduino-cli config init
+        ./arduino-cli core update-index --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
     
-    - name: Install ESP8266 core v2.4.2 (last working with full wifi_send)
+    - name: Install ESP8266 core (latest stable)
       run: |
-        ./arduino-cli core update-index --additional-urls https://raw.githubusercontent.com/esp8266/Arduino/2.4.2/package_esp8266com_index.json
-        ./arduino-cli core install esp8266:esp8266:2.4.2 --additional-urls https://raw.githubusercontent.com/esp8266/Arduino/2.4.2/package_esp8266com_index.json
+        ./arduino-cli core install esp8266:esp8266 --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
     
     - name: Compile firmware
       run: |
@@ -33,5 +33,5 @@ jobs:
     - name: Upload firmware
       uses: actions/upload-artifact@v4
       with:
-        name: MT2-Firmware-v242
+        name: MT2-Firmware-STATIONAP-Fix
         path: build/**/*.bin
