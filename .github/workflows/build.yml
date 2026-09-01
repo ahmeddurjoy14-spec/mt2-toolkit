@@ -25,7 +25,7 @@ jobs:
     - name: Compile firmware
       run: |
         ./arduino-cli compile \
-          --fqbn esp8266:esp8266:nodemcuv2:xtal=80,vt=flash,exception=disabled,stacksmash=disabled,ssl=all,mem512=0,ip=lm2f,clear=0 \
+          --fqbn esp8266:esp8266:nodemcuv2:xtal=80,exception=disabled,stacksmash=disabled,ssl=all \
           --warnings all \
           --output-dir build \
           ./
