@@ -20,7 +20,7 @@ jobs:
     - name: Install ESP8266 core
       run: |
         ./arduino-cli core update-index
-        ./arduino-cli core install esp8266:esp8266@2.7.4
+        ./arduino-cli core install esp8266:esp8266
     
     - name: Compile firmware
       run: |
