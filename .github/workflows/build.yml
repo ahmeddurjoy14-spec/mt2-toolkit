@@ -1,0 +1,51 @@
+name: Build MT2 Firmware
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        path: MT2
+    
+    - name: Setup Arduino CLI
+      run: |
+        curl -fsSL https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz | tar xz
+        mv arduino-cli /opt/arduino-cli
+        export PATH="/opt/arduino-cli:$PATH"
+        arduino-cli config init
+    
+    - name: Install ESP8266 core
+      run: |
+        export PATH="/opt/arduino-cli:$PATH"
+        arduino-cli core update-index
+        arduino-cli core install esp8266:esp8266@2.7.4
+    
+    - name: Compile firmware
+      run: |
+        export PATH="/opt/arduino-cli:$PATH"
+        arduino-cli compile \
+          --fqbn esp8266:esp8266:nodemcuv2:CpuFrequency=80,FlashSize=4M3M,UploadSpeed=115200 \
+          --warnings all \
+          --output-dir build \
+          MT2/
+    
+    - name: List build output
+      run: |
+        ls -la build/
+        find build/ -name "*.bin" -type f
+    
+    - name: Upload firmware artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MT2-Firmware
+        path: build/**/*.bin
