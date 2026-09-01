@@ -15,7 +15,7 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
 
     private TextView logView, attackTargetSSID, attackTargetInfo;
     private EditText cliInput;
-    private Button btnDeauth, btnEvilTwin, btnHandshake, btnKarma, btnFull, btnTDeauth, btnStop, btnBack, btnSend, btnDebug, btnAutoScroll;
+    private Button btnDeauth, btnEvilTwin, btnHandshake, btnKarma, btnFull, btnTDeauth, btnStop, btnBack, btnSend, btnDebug, btnAutoScroll, btnDownloadCreds;
     private ScrollView logScrollView;
     private SerialManager serial;
     private final StringBuilder logBuffer = new StringBuilder();
@@ -47,6 +47,7 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
             btnSend            = (Button) findViewById(R.id.btnSend);
             btnDebug           = (Button) findViewById(R.id.btnDebug);
             btnAutoScroll      = (Button) findViewById(R.id.btnAutoScroll);
+            btnDownloadCreds   = (Button) findViewById(R.id.btnDownloadCreds);
 
             serial = SerialManager.getInstance(this);
             serial.setListener(this);
@@ -166,6 +167,11 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
                 if (autoScroll) scrollToBottom();
             }
         });
+        btnDownloadCreds.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                downloadCredentials();
+            }
+        });
         } catch (Exception e) {
             // Show error to user, don't crash
             android.widget.Toast.makeText(this,
@@ -192,6 +198,12 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
     private void scrollToBottom() {
         logScrollView.post(new Runnable() {
             @Override public void run() {
+                // Ensure TextView is measured first
+                logView.invalidate();
+                logScrollView.invalidate();
+                // Smooth scroll to bottom
+                logScrollView.smoothScrollTo(0, logView.getBottom());
+                // Also try fullScroll as fallback
                 logScrollView.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
@@ -203,7 +215,14 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
             logBuffer.delete(0, logBuffer.length() - 12000);
         }
         logView.setText(logBuffer.toString());
-        if (autoScroll) scrollToBottom();
+        if (autoScroll) {
+            // Small delay to let TextView measure its height
+            logScrollView.postDelayed(new Runnable() {
+                @Override public void run() {
+                    scrollToBottom();
+                }
+            }, 10);
+        }
     }
 
     @Override
@@ -227,4 +246,10 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
     }
 
     private void toast(String s) { Toast.makeText(this, s, Toast.LENGTH_SHORT).show(); }
+
+    private void downloadCredentials() {
+        appendLog("[UI] Requesting credentials.txt from ESP8266...\n");
+        serial.sendCommand("getcreds");
+        toast("Credentials requested - check serial output");
+    }
 }

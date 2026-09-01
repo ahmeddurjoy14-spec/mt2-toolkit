@@ -5,103 +5,81 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Background gradient: dark navy to black -->
+    <!-- Background with subtle gradient -->
     <path
-        android:pathData="M0,0h108v108h-108z"
-        android:fillColor="#0A0E1A"/>
+        android:fillColor="#0D1117"
+        android:pathData="M0,0h108v108h-108z"/>
 
     <!-- Outer glow ring -->
     <path
-        android:pathData="M54,18m-30,0a30,30 0 1,0 60,0a30,30 0 1,0 -60,0"
-        android:strokeColor="#FF1744"
+        android:fillColor="#00FF41"
+        android:fillAlpha="0.08"
+        android:pathData="M54,54m-52,0a52,52 0,1 1,104 0a52,52 0,1 1,-104 0"/>
+
+    <!-- Hexagonal frame -->
+    <path
+        android:strokeColor="#00FF41"
         android:strokeWidth="1.5"
-        android:fillColor="#00000000"/>
+        android:strokeAlpha="0.4"
+        android:fillColor="#00000000"
+        android:pathData="M54,18 L84,36 L84,72 L54,90 L24,72 L24,36 Z"/>
 
-    <!-- WiFi waves (3 arcs, top right) -->
+    <!-- Inner hexagon -->
     <path
-        android:pathData="M70,30 a12,12 0 0,1 18,0"
-        android:strokeColor="#00E5FF"
-        android:strokeWidth="2.5"
-        android:fillColor="#00000000"/>
-    <path
-        android:pathData="M67,33 a8,8 0 0,1 14,0"
-        android:strokeColor="#00E5FF"
-        android:strokeWidth="2.5"
-        android:fillColor="#00000000"/>
-    <path
-        android:pathData="M64,36 a4,4 0 0,1 10,0"
-        android:strokeColor="#00E5FF"
-        android:strokeWidth="2.5"
-        android:fillColor="#00000000"/>
+        android:strokeColor="#00FF41"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.2"
+        android:fillColor="#00000000"
+        android:pathData="M54,24 L78,39 L78,69 L54,84 L30,69 L30,39 Z"/>
 
-    <!-- Skull outline (centered) -->
+    <!-- WiFi signal arcs - clean professional style -->
+    <!-- Arc 1 -->
     <path
-        android:pathData="M40,52
-                          C40,40 47,32 54,32
-                          C61,32 68,40 68,52
-                          L68,68
-                          C68,72 64,74 62,76
-                          L62,84
-                          C62,86 60,88 58,88
-                          L50,88
-                          C48,88 46,86 46,84
-                          L46,76
-                          C44,74 40,72 40,68
-                          Z"
-        android:fillColor="#F5F5F5"
-        android:strokeColor="#FF1744"
-        android:strokeWidth="1.5"/>
+        android:strokeColor="#00FF41"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M30,60 Q54,35 78,60"/>
+    <!-- Arc 2 -->
+    <path
+        android:strokeColor="#00FF41"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M36,60 Q54,42 72,60"/>
+    <!-- Arc 3 -->
+    <path
+        android:strokeColor="#00FF41"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M42,60 Q54,48 66,60"/>
 
-    <!-- Left eye socket -->
+    <!-- Center dot -->
     <path
-        android:pathData="M48,52 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
-        android:fillColor="#0A0E1A"/>
+        android:fillColor="#00FF41"
+        android:pathData="M54,63m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0"/>
 
-    <!-- Right eye socket -->
+    <!-- Glitch lines -->
     <path
-        android:pathData="M52,52 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
-        android:fillColor="#0A0E1A"/>
+        android:strokeColor="#FF0040"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.6"
+        android:pathData="M22,42 L40,42"/>
+    <path
+        android:strokeColor="#00FFFF"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.4"
+        android:pathData="M68,78 L86,78"/>
 
-    <!-- Eye glow (red dots) -->
+    <!-- Corner accents -->
     <path
-        android:pathData="M51,52 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0"
-        android:fillColor="#FF1744"/>
-    <path
-        android:pathData="M55,52 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0"
-        android:fillColor="#FF1744"/>
+        android:strokeColor="#00FF41"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.5"
+        android:pathData="M18,18 L28,18 L18,28"/>
 
-    <!-- Nose triangle -->
+    <!-- Scan line effect -->
     <path
-        android:pathData="M54,60 L52,66 L56,66 Z"
-        android:fillColor="#0A0E1A"/>
+        android:fillColor="#00FF41"
+        android:fillAlpha="0.03"
+        android:pathData="M24,50 L84,50 L84,52 L24,52 Z"/>
 
-    <!-- Teeth gaps (mouth) -->
-    <path
-        android:pathData="M48,74 L60,74 L60,76 L48,76 Z"
-        android:fillColor="#0A0E1A"/>
-    <path
-        android:pathData="M51,74 L51,80"
-        android:strokeColor="#0A0E1A"
-        android:strokeWidth="1.5"/>
-    <path
-        android:pathData="M54,74 L54,80"
-        android:strokeColor="#0A0E1A"
-        android:strokeWidth="1.5"/>
-    <path
-        android:pathData="M57,74 L57,80"
-        android:strokeColor="#0A0E1A"
-        android:strokeWidth="1.5"/>
-
-    <!-- Bottom: "MT2" text in red, no actual text (vector only) -->
-    <!-- Crossed bones under skull -->
-    <path
-        android:pathData="M30,82 L36,76 M30,82 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 M36,76 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"
-        android:strokeColor="#F5F5F5"
-        android:strokeWidth="2.5"
-        android:fillColor="#00000000"/>
-    <path
-        android:pathData="M78,82 L72,76 M78,82 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 M72,76 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"
-        android:strokeColor="#F5F5F5"
-        android:strokeWidth="2.5"
-        android:fillColor="#00000000"/>
 </vector>

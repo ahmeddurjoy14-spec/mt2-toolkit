@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mt2.attack"
-    android:versionCode="3"
-    android:versionName="3.0">
+    android:versionCode="4"
+    android:versionName="2.0">
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:label="@string/app_name"
+        android:label="MT2 Attack Console"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
@@ -24,7 +24,7 @@
 
         <activity
             android:name=".ConnectActivity"
-            android:label="@string/app_name"
+            android:label="MT2 Attack Console"
             android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
@@ -41,13 +41,13 @@
 
         <activity
             android:name=".ScanActivity"
-            android:label="Step 2 - Scan"
+            android:label="MT2 - Scan Networks"
             android:launchMode="singleTop"
             android:exported="false"/>
 
         <activity
             android:name=".AttackActivity"
-            android:label="Step 3 - Attack"
+            android:label="MT2 - Attack Console"
             android:launchMode="singleTop"
             android:exported="false"/>
 

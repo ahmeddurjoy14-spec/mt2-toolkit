@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <corners android:radius="10dp"/>
-            <solid android:color="#7B1FA2"/>
-        </shape>
-    </item>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Purple twin button -->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="10dp"/>
-            <gradient
-                android:angle="135"
-                android:startColor="#9C27B0"
-                android:endColor="#4A148C"
-                android:type="linear"/>
+            <solid android:color="@color/btn_twin_end"/>
+            <corners android:radius="6dp"/>
         </shape>
     </item>
-</selector>
+    <item
+        android:left="0dp"
+        android:top="0dp"
+        android:right="0dp"
+        android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="0"
+                android:startColor="@color/btn_twin_start"
+                android:endColor="@color/btn_twin_end"/>
+            <corners android:radius="6dp"/>
+        </shape>
+    </item>
+</layer-list>

@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Professional App Theme -->
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">@drawable/bg_main</item>
-        <item name="android:statusBarColor">#0A0E1A</item>
-        <item name="android:navigationBarColor">#0A0E1A</item>
+        <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="android:statusBarColor">#010409</item>
+        <item name="android:navigationBarColor">#0D1117</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:textColorPrimary">#FFFFFF</item>
-        <item name="android:textColorSecondary">#9CA3AF</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 
+    <!-- Header text - Clean sans-serif -->
     <style name="HeaderText">
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:letterSpacing">0.15</item>
+        <item name="android:letterSpacing">0.08</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
+    <!-- Body text -->
     <style name="BodyText">
         <item name="android:textColor">@color/text_secondary</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <!-- Terminal/Log text - Professional monospace -->
     <style name="LogText">
         <item name="android:textColor">@color/text_log</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">monospace</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
     </style>
 </resources>

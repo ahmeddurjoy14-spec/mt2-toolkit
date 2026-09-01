@@ -148,6 +148,32 @@ void cmdStop() {
   Serial.flush();
 }
 
+void cmdGetCreds() {
+  // Send credentials.txt from ESP8266 storage
+  File f;
+  bool useSD = SD.begin(SD_CS);
+  if (useSD) {
+    f = SD.open("/credentials.txt", FILE_READ);
+  }
+  if (!f) {
+    f = LittleFS.open("/credentials.txt", "r");
+  }
+  if (!f) {
+    Serial.println(F("ERR: no credentials.txt found"));
+    return;
+  }
+  Serial.print(F("OK:CREDENTIALS size="));
+  Serial.println(f.size());
+  // Send content as text
+  while (f.available()) {
+    char c = f.read();
+    if (c == '\n') Serial.write('\r');
+    Serial.write(c);
+  }
+  f.close();
+  Serial.println(F("\nOK:DONE"));
+}
+
 void cmdStatus() {
   Serial.print(F("STATUS: mode="));
   if (bestAttackMode == 1) Serial.print(F("combo"));
@@ -706,6 +732,7 @@ void executeCli() {
   else if (!strcmp(v, "full"))   cmdFull();
   else if (!strcmp(v, "tdeauth")) cmdTDeauth();
   else if (!strcmp(v, "reboot")) cmdReboot();
+  else if (!strcmp(v, "getcreds")) cmdGetCreds();
   else {
     Serial.print(F("unknown: "));
     Serial.println(v);

@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <corners android:radius="10dp"/>
-            <solid android:color="#00B0FF"/>
-        </shape>
-    </item>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Blue primary button -->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="10dp"/>
-            <gradient
-                android:angle="135"
-                android:startColor="#00E5FF"
-                android:endColor="#0277BD"
-                android:type="linear"/>
+            <solid android:color="@color/btn_primary_end"/>
+            <corners android:radius="6dp"/>
         </shape>
     </item>
-</selector>
+    <item
+        android:left="0dp"
+        android:top="0dp"
+        android:right="0dp"
+        android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="0"
+                android:startColor="@color/btn_primary_start"
+                android:endColor="@color/btn_primary_end"/>
+            <corners android:radius="6dp"/>
+        </shape>
+    </item>
+</layer-list>
