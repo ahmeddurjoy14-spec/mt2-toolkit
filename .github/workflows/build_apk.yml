@@ -1,0 +1,34 @@
+name: Build MT2 APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'apk/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        
+      - name: Build APK
+        run: |
+          cd apk
+          chmod +x build_apk.sh
+          ./build_apk.sh
+          
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MT2Attack
+          path: apk/dist/MT2Attack.apk
