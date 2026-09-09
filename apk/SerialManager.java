@@ -27,7 +27,6 @@ public class SerialManager {
     private static SerialManager instance;
     private final Context appContext;
     private final UsbManager usbManager;
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private UsbSerialPort serialPort;
     private UsbSerialDriver driver;

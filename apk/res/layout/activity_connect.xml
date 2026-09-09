@@ -144,6 +144,17 @@
         android:layout_marginBottom="8dp"/>
 
     <Button
+        android:id="@+id/btnScan"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="📡 SCAN NETWORKS"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:background="@drawable/btn_primary"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
         android:id="@+id/btnBT"
         android:layout_width="match_parent"
         android:layout_height="56dp"
