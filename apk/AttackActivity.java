@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
+import android.os.Looper;
 
 public class AttackActivity extends Activity implements SerialManager.DataListener {
 
@@ -22,6 +24,7 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
     private boolean debugMode = false;
     private String targetSSID, targetBSSID;
     private int targetChan;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,27 +52,48 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
 
             serial = SerialManager.getInstance(this);
 
-            // Set initial target from intent
             targetSSID = getIntent().getStringExtra("target_ssid");
             if (targetSSID != null) {
                 attackTargetSSID.setText("Target: " + targetSSID);
                 attackTargetInfo.setText("WiFi Pentest Mode");
             } else {
-                attackTargetSSID.setText("Target: —");
+                attackTargetSSID.setText("Target: --");
                 attackTargetInfo.setText("Select target from Scan");
             }
 
-            btnDeauth.setOnClickListener(v -> attackDeauth());
-            btnEvilTwin.setOnClickListener(v -> attackEvilTwin());
-            btnHandshake.setOnClickListener(v -> attackHandshake());
-            btnKarma.setOnClickListener(v -> attackKarma());
-            btnFull.setOnClickListener(v -> attackFull());
-            btnTDeauth.setOnClickListener(v -> attackTargetedDeauth());
-            btnStop.setOnClickListener(v -> stopAttack());
-            btnBack.setOnClickListener(v -> finish());
-            btnSend.setOnClickListener(v -> sendCommand());
-            btnDebug.setOnClickListener(v -> toggleDebug());
-            btnAutoScroll.setOnClickListener(v -> toggleAutoScroll());
+            btnDeauth.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { attackDeauth(); }
+            });
+            btnEvilTwin.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { attackEvilTwin(); }
+            });
+            btnHandshake.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { attackHandshake(); }
+            });
+            btnKarma.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { attackKarma(); }
+            });
+            btnFull.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { attackFull(); }
+            });
+            btnTDeauth.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { attackTargetedDeauth(); }
+            });
+            btnStop.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { stopAttack(); }
+            });
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { finish(); }
+            });
+            btnSend.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { sendCommand(); }
+            });
+            btnDebug.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { toggleDebug(); }
+            });
+            btnAutoScroll.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) { toggleAutoScroll(); }
+            });
 
             logView.append("\n[ATTACK] Ready. Select target and begin.");
         } catch (Exception e) {
@@ -138,14 +162,18 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
 
     @Override
     public void onData(String line) {
-        runOnUiThread(() -> logView.append("\n" + line));
+        mHandler.post(new Runnable() {
+            @Override public void run() { logView.append("\n" + line); }
+        });
     }
 
     @Override
     public void onConnected(boolean isConnected, String info) {
-        runOnUiThread(() -> {
-            if (isConnected) {
-                logView.append("\n[CONNECTED] ESP32 ready for attacks");
+        mHandler.post(new Runnable() {
+            @Override public void run() {
+                if (isConnected) {
+                    logView.append("\n[CONNECTED] ESP32 ready for attacks");
+                }
             }
         });
     }

@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
+import android.os.Looper;
 
 public class KarmaActivity extends Activity {
 
@@ -23,9 +25,9 @@ public class KarmaActivity extends Activity {
         btnStop = findViewById(R.id.btnStop);
         btnBack = findViewById(R.id.btnBack);
 
-        btnKarma.setOnClickListener(v -> startKarma());
-        btnStop.setOnClickListener(v -> stopKarma());
-        btnBack.setOnClickListener(v -> finish());
+        btnKarma.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { startKarma(); }});
+        btnStop.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { stopKarma(); }});
+        btnBack.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
     }
 
     private void startKarma() {

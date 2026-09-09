@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
+import android.os.Looper;
 
 public class DeauthActivity extends Activity {
 
@@ -24,10 +26,10 @@ public class DeauthActivity extends Activity {
         btnStop = findViewById(R.id.btnStop);
         btnBack = findViewById(R.id.btnBack);
 
-        btnFull.setOnClickListener(v -> fullDeauth());
-        btnTDeauth.setOnClickListener(v -> targetedDeauth());
-        btnStop.setOnClickListener(v -> stopAttack());
-        btnBack.setOnClickListener(v -> finish());
+        btnFull.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { fullDeauth(); }});
+        btnTDeauth.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { targetedDeauth(); }});
+        btnStop.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { stopAttack(); }});
+        btnBack.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
     }
 
     private void fullDeauth() {

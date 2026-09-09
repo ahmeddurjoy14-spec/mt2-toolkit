@@ -7,10 +7,10 @@ import android.bluetooth.BluetoothManager;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +19,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 public class BluetoothActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -29,6 +28,7 @@ public class BluetoothActivity extends Activity implements AdapterView.OnItemCli
     private Button btnScan, btnConnect, btnSend, btnBack;
     private ArrayAdapter<String> deviceAdapter;
     private final List<String> deviceListData = new ArrayList<String>();
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +50,22 @@ public class BluetoothActivity extends Activity implements AdapterView.OnItemCli
         deviceList.setAdapter(deviceAdapter);
         deviceList.setOnItemClickListener(this);
 
-        btnScan.setOnClickListener(v -> scanDevices());
-        btnConnect.setOnClickListener(v -> connectDevice());
-        btnSend.setOnClickListener(v -> sendCommand());
-        btnBack.setOnClickListener(v -> finish());
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { scanDevices(); }
+        });
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { connectDevice(); }
+        });
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { sendCommand(); }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { finish(); }
+        });
 
         if (checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{
@@ -84,7 +96,10 @@ public class BluetoothActivity extends Activity implements AdapterView.OnItemCli
         statusText.setText("Found " + paired.size() + " paired devices");
 
         bluetoothAdapter.startDiscovery();
-        new Handler().postDelayed(() -> bluetoothAdapter.cancelDiscovery(), 5000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() { bluetoothAdapter.cancelDiscovery(); }
+        }, 5000);
     }
 
     private void connectDevice() {
@@ -96,11 +111,13 @@ public class BluetoothActivity extends Activity implements AdapterView.OnItemCli
         String address = selected.split("\\|")[1].trim();
         statusText.setText("Connecting to " + address + "...");
         logView.append("\n[BT] Connecting to " + address);
-        // Simulated BT connection for ESP32 BLE
-        new Handler().postDelayed(() -> {
-            statusText.setText("Connected: " + address);
-            logView.append("\n[BT] Connected");
-            Toast.makeText(this, "Bluetooth Connected", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                statusText.setText("Connected: " + address);
+                logView.append("\n[BT] Connected");
+                Toast.makeText(BluetoothActivity.this, "Bluetooth Connected", Toast.LENGTH_SHORT).show();
+            }
         }, 1000);
     }
 

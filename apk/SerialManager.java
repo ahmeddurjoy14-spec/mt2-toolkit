@@ -33,6 +33,7 @@ public class SerialManager {
     private UsbSerialDriver driver;
     private SerialInputOutputManager serialIo;
     private ExecutorService ioExecutor;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
     private boolean connected = false;
 
     public interface DataListener {
@@ -108,17 +109,17 @@ public class SerialManager {
             serialIo = new SerialInputOutputManager(serialPort, new SerialInputOutputManager.Listener() {
                 @Override
                 public void onNewData(final byte[] data) {
-                    mainHandler.post(() -> {
+                    mHandler.post(new Runnable() {@Override public void run() {
                         String line = new String(data);
                         if (listener != null) listener.onData(line);
-                    });
+                    }});
                 }
                 @Override
                 public void onRunError(Exception e) {
                     connected = false;
-                    mainHandler.post(() -> {
+                    mHandler.post(new Runnable() {@Override public void run() {
                         if (listener != null) listener.onConnected(false, "Connection lost");
-                    });
+                    }});
                 }
             });
             ioExecutor.submit(serialIo);
@@ -155,8 +156,8 @@ public class SerialManager {
     }
 
     private void notifyConnected(final boolean isConn, final String info) {
-        mainHandler.post(() -> {
+        mHandler.post(new Runnable() {@Override public void run() {
             if (listener != null) listener.onConnected(isConn, info);
-        });
+        }});
     }
 }

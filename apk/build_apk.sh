@@ -66,10 +66,9 @@ CLASS_FILES=$(find "$APK_DIR/build/classes" -name "*.class" 2>/dev/null | tr '\n
 mkdir -p "$APK_DIR/build"
 cd "$APK_DIR/build/classes"
 java -cp "$D8_JAR" com.android.tools.r8.D8 \
-    --min-api 21 \
+    --lib "$ANDROID_JAR" \
     --output "$APK_DIR/build" \
-    $CLASS_FILES 2>&1 | grep -v "^Warning" | tail -3
-
+    $CLASS_FILES 2>\&1 | grep -v "^Warning" | tail -3
 # Step 5: Add classes.dex to APK
 echo "[5/7] Add dex to APK..."
 cd "$APK_DIR/build"

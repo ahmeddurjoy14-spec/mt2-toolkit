@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
+import android.os.Looper;
 
 public class EvilTwinActivity extends Activity {
 
@@ -26,10 +28,10 @@ public class EvilTwinActivity extends Activity {
 
         btnClone.setText("CLONE NETWORK");
 
-        btnClone.setOnClickListener(v -> cloneNetwork());
-        btnStart.setOnClickListener(v -> startEvilTwin());
-        btnStop.setOnClickListener(v -> stopEvilTwin());
-        btnBack.setOnClickListener(v -> finish());
+        btnClone.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { cloneNetwork(); }});
+        btnStart.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { startEvilTwin(); }});
+        btnStop.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { stopEvilTwin(); }});
+        btnBack.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
     }
 
     private void cloneNetwork() {

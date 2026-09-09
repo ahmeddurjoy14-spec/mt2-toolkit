@@ -3,6 +3,8 @@ package com.mt2.attack;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +25,7 @@ public class ScanActivity extends Activity implements SerialManager.DataListener
     private final List<String> networkList = new ArrayList<String>();
     private SerialManager serial;
     private String selectedTarget;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +44,31 @@ public class ScanActivity extends Activity implements SerialManager.DataListener
         serial = SerialManager.getInstance(this);
         networkAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, networkList);
         networkListView.setAdapter(networkAdapter);
-        networkListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
-            selectedTarget = networkList.get(position);
-            selectedSSID.setText("Selected: " + selectedTarget);
+        networkListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedTarget = networkList.get(position);
+                selectedSSID.setText("Selected: " + selectedTarget);
+            }
         });
 
-        btnScan.setOnClickListener(v -> runScan());
-        btnBack.setOnClickListener(v -> finish());
-        btnNext.setOnClickListener(v -> {
-            if (selectedTarget == null) {
-                Toast.makeText(this, "Select a network first", Toast.LENGTH_SHORT).show();
-                return;
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { runScan(); }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { finish(); }
+        });
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedTarget == null) {
+                    Toast.makeText(ScanActivity.this, "Select a network first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(ScanActivity.this, AttackActivity.class);
+                intent.putExtra("target_ssid", selectedTarget);
+                startActivity(intent);
             }
-            Intent intent = new Intent(ScanActivity.this, AttackActivity.class);
-            intent.putExtra("target_ssid", selectedTarget);
-            startActivity(intent);
         });
 
         updateStatus();
@@ -73,11 +86,14 @@ public class ScanActivity extends Activity implements SerialManager.DataListener
 
         serial.sendCommand("scan");
         scanInfo.setText("Scanning networks...");
-        new android.os.Handler().postDelayed(() -> {
-            scanInfo.setText("Scan complete");
-            networkList.add("TestNetwork_5G");
-            networkList.add("OpenWiFi");
-            networkAdapter.notifyDataSetChanged();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scanInfo.setText("Scan complete");
+                networkList.add("TestNetwork_5G");
+                networkList.add("OpenWiFi");
+                networkAdapter.notifyDataSetChanged();
+            }
         }, 2000);
     }
 
@@ -91,16 +107,20 @@ public class ScanActivity extends Activity implements SerialManager.DataListener
 
     @Override
     public void onData(String line) {
-        runOnUiThread(() -> {
-            if (!line.isEmpty()) {
-                networkList.add(line);
-                networkAdapter.notifyDataSetChanged();
+        mHandler.post(new Runnable() {
+            @Override public void run() {
+                if (!line.isEmpty()) {
+                    networkList.add(line);
+                    networkAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
 
     @Override
     public void onConnected(boolean isConnected, String info) {
-        runOnUiThread(() -> updateStatus());
+        mHandler.post(new Runnable() {
+            @Override public void run() { updateStatus(); }
+        });
     }
 }
