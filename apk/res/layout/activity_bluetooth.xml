@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_primary"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_card"
+        android:padding="16dp"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📡 BLUETOOTH PENTEST"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/accent_blue"
+            android:fontFamily="sans-serif-black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BT CONNECTION MANAGEMENT"
+            android:textSize="11sp"
+            android:textColor="@color/accent_cyan"
+            android:letterSpacing="0.15"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <!-- Status card -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_card"
+        android:padding="16dp"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/btStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📡 BT Status: Not Available"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"/>
+
+        <TextView
+            android:id="@+id/btLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="@color/text_hint"
+            android:fontFamily="monospace"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- Scan button -->
+    <Button
+        android:id="@+id/btnBTScan"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="📡 SCAN DEVICES"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:background="@drawable/btn_primary"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Device list -->
+    <TextView
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PAIRED DEVICES"
+        android:layout_marginBottom="8dp"/>
+
+    <ListView
+        android:id="@+id/deviceList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bg_card"
+        android:cacheColorHint="@color/bg_card"
+        android:divider="@color/border_default"
+        android:dividerHeight="1dp"/>
+
+    <!-- Connect button -->
+    <Button
+        android:id="@+id/btnBTConnect"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="🔗 CONNECT"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:background="@drawable/btn_dark"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Send button -->
+    <Button
+        android:id="@+id/btnBTSend"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="📤 SEND COMMAND"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:background="@drawable/btn_success"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Back button -->
+    <Button
+        android:id="@+id/btnBTBack"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="← BACK TO MAIN"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        android:background="@drawable/btn_dark"/>
+</LinearLayout>

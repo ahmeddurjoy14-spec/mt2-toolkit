@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MT2 ESP32 Pentest</string>
+    <string name="app_subtitle">WiFi + Bluetooth Pentest</string>
+    <string name="status_disconnected">⚠ DISCONNECTED</string>
+    <string name="status_connected">✓ CONNECTED @ 115200</string>
+    <string name="version">v3.0 • Full Penetration Suite</string>
+
+    <!-- WiFi Functions -->
+    <string name="wifi_scan">WiFi Scan</string>
+    <string name="wifi_deauth">Deauth Attack</string>
+    <string name="wifi_beacon">Beacon Flood</string>
+    <string name="wifi_karma">Karma Portal</string>
+    <string name="wifi_evil_twin">Evil Twin</string>
+    <string name="wifi_handshake">Handshake Capture</string>
+    <string name="wifi_targeted_deauth">Targeted Deauth</string>
+
+    <!-- Bluetooth Functions -->
+    <string name="bluetooth_scan">Bluetooth Scan</string>
+    <string name="bluetooth_connect">BT Connect</string>
+    <string name="bluetooth_send">BT Send</string>
+    <string name="bluetooth_hid">BT HID Attack</string>
+    <string name="bluetooth_oob">BT OOB Exploit</string>
+
+    <!-- ESP32 Commands -->
+    <string name="cmd_scan">scan</string>
+    <string name="cmd_deauth">deauth</string>
+    <string name="cmd_karma">karma</string>
+    <string name="cmd_beacon">beacon</string>
+    <string name="cmd_ble">ble</string>
+    <string name="cmd_scan_ble">ble_scan</string>
+    <string name="cmd_bt_hid">bt_hid</string>
+    <string name="cmd_bt_connect">bt_connect</string>
+    <string name="cmd_bt_pair">bt_pair</string>
+
+    <!-- Status -->
+    <string name="scanning">Scanning...</string>
+    <string name="scanning_complete">Scan complete</string>
+    <string name="attack_active">Attack Active</string>
+    <string name="attack_stopped">Attack Stopped</string>
+</resources>
