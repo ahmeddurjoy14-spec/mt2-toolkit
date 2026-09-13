@@ -9,6 +9,10 @@ import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
 
+
+private static abstract class ClickListener implements View.OnClickListener {
+    @Override public abstract void onClick(View v);
+}
 public class EvilTwinActivity extends Activity {
 
     private TextView logView, statusText;
@@ -28,10 +32,10 @@ public class EvilTwinActivity extends Activity {
 
         btnClone.setText("CLONE NETWORK");
 
-        btnClone.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { cloneNetwork(); }});
-        btnStart.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { startEvilTwin(); }});
-        btnStop.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { stopEvilTwin(); }});
-        btnBack.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
+        btnClone.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { cloneNetwork(); }});
+        btnStart.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { startEvilTwin(); }});
+        btnStop.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { stopEvilTwin(); }});
+        btnBack.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { finish(); }});
     }
 
     private void cloneNetwork() {

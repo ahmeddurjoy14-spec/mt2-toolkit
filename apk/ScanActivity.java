@@ -16,6 +16,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+
+private static abstract class ClickListener implements View.OnClickListener {
+    @Override public abstract void onClick(View v);
+}
 public class ScanActivity extends Activity implements SerialManager.DataListener {
 
     private ListView networkListView;
@@ -52,13 +56,13 @@ public class ScanActivity extends Activity implements SerialManager.DataListener
             }
         });
 
-        btnScan.setOnClickListener(new View.OnClickListener() {
+        btnScan.setOnClickListener(new ClickListener() {
             @Override public void onClick(View v) { runScan(); }
         });
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new ClickListener() {
             @Override public void onClick(View v) { finish(); }
         });
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new ClickListener() {
             @Override
             public void onClick(View v) {
                 if (selectedTarget == null) {

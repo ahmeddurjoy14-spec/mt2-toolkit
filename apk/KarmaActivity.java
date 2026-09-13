@@ -9,6 +9,10 @@ import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
 
+
+private static abstract class ClickListener implements View.OnClickListener {
+    @Override public abstract void onClick(View v);
+}
 public class KarmaActivity extends Activity {
 
     private TextView logView, statusText;
@@ -25,9 +29,9 @@ public class KarmaActivity extends Activity {
         btnStop = findViewById(R.id.btnStop);
         btnBack = findViewById(R.id.btnBack);
 
-        btnKarma.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { startKarma(); }});
-        btnStop.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { stopKarma(); }});
-        btnBack.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
+        btnKarma.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { startKarma(); }});
+        btnStop.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { stopKarma(); }});
+        btnBack.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { finish(); }});
     }
 
     private void startKarma() {

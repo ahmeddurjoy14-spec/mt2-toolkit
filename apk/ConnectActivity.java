@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+private static abstract class ClickListener implements View.OnClickListener {
+    @Override public abstract void onClick(View v);
+}
 public class ConnectActivity extends Activity implements SerialManager.DataListener {
 
     private TextView statusText, deviceInfo;
@@ -45,7 +49,7 @@ public class ConnectActivity extends Activity implements SerialManager.DataListe
 
         refreshDevices();
 
-        btnConnect.setOnClickListener(new View.OnClickListener() {
+        btnConnect.setOnClickListener(new ClickListener() {
             @Override public void onClick(View v) {
                 if (serial.isConnected()) {
                     serial.disconnect();
@@ -55,7 +59,7 @@ public class ConnectActivity extends Activity implements SerialManager.DataListe
             }
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new ClickListener() {
             @Override public void onClick(View v) {
                 // Clear back stack to prevent stale state
                 Intent intent = new Intent(ConnectActivity.this, ScanActivity.class);

@@ -12,6 +12,10 @@ import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
 
+
+private static abstract class ClickListener implements View.OnClickListener {
+    @Override public abstract void onClick(View v);
+}
 public class AttackActivity extends Activity implements SerialManager.DataListener {
 
     private TextView logView, attackTargetSSID, attackTargetInfo;
@@ -61,37 +65,37 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
                 attackTargetInfo.setText("Select target from Scan");
             }
 
-            btnDeauth.setOnClickListener(new View.OnClickListener() {
+            btnDeauth.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { attackDeauth(); }
             });
-            btnEvilTwin.setOnClickListener(new View.OnClickListener() {
+            btnEvilTwin.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { attackEvilTwin(); }
             });
-            btnHandshake.setOnClickListener(new View.OnClickListener() {
+            btnHandshake.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { attackHandshake(); }
             });
-            btnKarma.setOnClickListener(new View.OnClickListener() {
+            btnKarma.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { attackKarma(); }
             });
-            btnFull.setOnClickListener(new View.OnClickListener() {
+            btnFull.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { attackFull(); }
             });
-            btnTDeauth.setOnClickListener(new View.OnClickListener() {
+            btnTDeauth.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { attackTargetedDeauth(); }
             });
-            btnStop.setOnClickListener(new View.OnClickListener() {
+            btnStop.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { stopAttack(); }
             });
-            btnBack.setOnClickListener(new View.OnClickListener() {
+            btnBack.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { finish(); }
             });
-            btnSend.setOnClickListener(new View.OnClickListener() {
+            btnSend.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { sendCommand(); }
             });
-            btnDebug.setOnClickListener(new View.OnClickListener() {
+            btnDebug.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { toggleDebug(); }
             });
-            btnAutoScroll.setOnClickListener(new View.OnClickListener() {
+            btnAutoScroll.setOnClickListener(new ClickListener() {
                 @Override public void onClick(View v) { toggleAutoScroll(); }
             });
 

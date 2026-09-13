@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
+private static abstract class ClickListener implements View.OnClickListener {
+    @Override public abstract void onClick(View v);
+}
 public class BluetoothActivity extends Activity implements AdapterView.OnItemClickListener {
 
     private BluetoothAdapter bluetoothAdapter;
@@ -50,19 +54,19 @@ public class BluetoothActivity extends Activity implements AdapterView.OnItemCli
         deviceList.setAdapter(deviceAdapter);
         deviceList.setOnItemClickListener(this);
 
-        btnScan.setOnClickListener(new View.OnClickListener() {
+        btnScan.setOnClickListener(new ClickListener() {
             @Override
             public void onClick(View v) { scanDevices(); }
         });
-        btnConnect.setOnClickListener(new View.OnClickListener() {
+        btnConnect.setOnClickListener(new ClickListener() {
             @Override
             public void onClick(View v) { connectDevice(); }
         });
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        btnSend.setOnClickListener(new ClickListener() {
             @Override
             public void onClick(View v) { sendCommand(); }
         });
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new ClickListener() {
             @Override
             public void onClick(View v) { finish(); }
         });

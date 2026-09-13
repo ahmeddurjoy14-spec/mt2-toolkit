@@ -9,6 +9,10 @@ import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
 
+
+private static abstract class ClickListener implements View.OnClickListener {
+    @Override public abstract void onClick(View v);
+}
 public class DeauthActivity extends Activity {
 
     private TextView logView, statusText;
@@ -26,10 +30,10 @@ public class DeauthActivity extends Activity {
         btnStop = findViewById(R.id.btnStop);
         btnBack = findViewById(R.id.btnBack);
 
-        btnFull.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { fullDeauth(); }});
-        btnTDeauth.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { targetedDeauth(); }});
-        btnStop.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { stopAttack(); }});
-        btnBack.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) { finish(); }});
+        btnFull.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { fullDeauth(); }});
+        btnTDeauth.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { targetedDeauth(); }});
+        btnStop.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { stopAttack(); }});
+        btnBack.setOnClickListener(new ClickListener() {@Override public void onClick(View v) { finish(); }});
     }
 
     private void fullDeauth() {
