@@ -53,69 +53,8 @@ public class MainActivity extends Activity {
         btnExit.setOnClickListener(new ClickListener() {
             @Override public void onClick(View v) { finish(); }
         });
-    }
-
-    private static abstract class ClickListener implements View.OnClickListener {
-        @Override public abstract void onClick(View v);
-    }
-
-    private void connectDevice() {
-        if (serial.connect()) {
-            statusView.setText("CONNECTED @ 115200");
-            statusView.setTextColor(getResources().getColor(R.color.accent_green));
-            Toast.makeText(this, "ESP32 Connected", Toast.LENGTH_SHORT).show();
-        } else {
-            statusView.setText("DISCONNECTED");
-            statusView.setTextColor(getResources().getColor(R.color.accent_red));
-            Toast.makeText(this, "No ESP32 found", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void startScan() {
-        if (!serial.isConnected()) {
-            Toast.makeText(this, "Connect ESP32 first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        startActivity(new Intent(this, ScanActivity.class));
-    }
-
-    private void startAttack() {
-        if (!serial.isConnected()) {
-            Toast.makeText(this, "Connect ESP32 first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        startActivity(new Intent(this, AttackActivity.class));
-    }
-
-    private void startBluetooth() {
-        if (!serial.isConnected()) {
-            Toast.makeText(this, "Connect ESP32 first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        startActivity(new Intent(this, BluetoothActivity.class));
-    }
-
-    private static class MT2DataListener implements SerialManager.DataListener {
-        private final Handler handler;
-
-        MT2DataListener(Handler handler) {
-            this.handler = handler;
-        }
-
-        @Override
-        public void onData(String line) {
-            Message msg = Message.obtain();
-            msg.what = MSG_UPDATE_DATA;
-            msg.obj = line;
-            handler.sendMessage(msg);
-        }
-
-        @Override
-        public void onConnected(boolean isConnected, String info) {
-            Message msg = Message.obtain();
-            msg.what = MSG_UPDATE_STATUS;
-            msg.obj = isConnected ? "CONNECTED @ 115200" : "DISCONNECTED";
-            handler.sendMessage(msg);
-        }
+    
+    private static abstract class ClickListener implements android.view.View.OnClickListener {
+        @Override public abstract void onClick(android.view.View v);
     }
 }

@@ -10,9 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 
-private static abstract class ClickListener implements View.OnClickListener {
-    @Override public abstract void onClick(View v);
-}
 public class DeauthActivity extends Activity {
 
     private TextView logView, statusText;
@@ -55,5 +52,9 @@ public class DeauthActivity extends Activity {
         statusText.setTextColor(getResources().getColor(R.color.accent_green));
         logView.append("\n[DEAUTH] Stopped");
         Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    private static abstract class ClickListener implements android.view.View.OnClickListener {
+        @Override public abstract void onClick(android.view.View v);
     }
 }

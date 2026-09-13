@@ -21,9 +21,6 @@ import java.util.List;
 import java.util.Set;
 
 
-private static abstract class ClickListener implements View.OnClickListener {
-    @Override public abstract void onClick(View v);
-}
 public class BluetoothActivity extends Activity implements AdapterView.OnItemClickListener {
 
     private BluetoothAdapter bluetoothAdapter;
@@ -140,5 +137,9 @@ public class BluetoothActivity extends Activity implements AdapterView.OnItemCli
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selected = deviceListData.get(position);
         logView.append("\n[Selected] " + selected);
+    }
+
+    private static abstract class ClickListener implements android.view.View.OnClickListener {
+        @Override public abstract void onClick(android.view.View v);
     }
 }

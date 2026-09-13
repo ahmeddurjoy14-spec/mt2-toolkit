@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 
-private static abstract class ClickListener implements View.OnClickListener {
-    @Override public abstract void onClick(View v);
-}
 public class ConnectActivity extends Activity implements SerialManager.DataListener {
 
     private TextView statusText, deviceInfo;
@@ -145,5 +142,9 @@ public class ConnectActivity extends Activity implements SerialManager.DataListe
                 }
             }
         });
+    }
+
+    private static abstract class ClickListener implements android.view.View.OnClickListener {
+        @Override public abstract void onClick(android.view.View v);
     }
 }

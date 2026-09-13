@@ -13,9 +13,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 
-private static abstract class ClickListener implements View.OnClickListener {
-    @Override public abstract void onClick(View v);
-}
 public class AttackActivity extends Activity implements SerialManager.DataListener {
 
     private TextView logView, attackTargetSSID, attackTargetInfo;
@@ -180,5 +177,9 @@ public class AttackActivity extends Activity implements SerialManager.DataListen
                 }
             }
         });
+    }
+
+    private static abstract class ClickListener implements android.view.View.OnClickListener {
+        @Override public abstract void onClick(android.view.View v);
     }
 }

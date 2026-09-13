@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-private static abstract class ClickListener implements View.OnClickListener {
-    @Override public abstract void onClick(View v);
-}
 public class ScanActivity extends Activity implements SerialManager.DataListener {
 
     private ListView networkListView;
@@ -126,5 +123,9 @@ public class ScanActivity extends Activity implements SerialManager.DataListener
         mHandler.post(new Runnable() {
             @Override public void run() { updateStatus(); }
         });
+    }
+
+    private static abstract class ClickListener implements android.view.View.OnClickListener {
+        @Override public abstract void onClick(android.view.View v);
     }
 }

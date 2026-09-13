@@ -10,9 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 
-private static abstract class ClickListener implements View.OnClickListener {
-    @Override public abstract void onClick(View v);
-}
 public class EvilTwinActivity extends Activity {
 
     private TextView logView, statusText;
@@ -56,5 +53,9 @@ public class EvilTwinActivity extends Activity {
         statusText.setTextColor(getResources().getColor(R.color.accent_green));
         logView.append("\n[EVIL TWIN] Stopped");
         Toast.makeText(this, "Evil Twin Stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    private static abstract class ClickListener implements android.view.View.OnClickListener {
+        @Override public abstract void onClick(android.view.View v);
     }
 }
