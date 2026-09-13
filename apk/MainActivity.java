@@ -5,34 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Looper;
 
 public class MainActivity extends Activity {
 
     private TextView statusView, deviceInfo;
     private Button btnConnect, btnScan, btnAttack, btnBT, btnExit;
     private SerialManager serial;
+    private Handler mHandler;
 
     private static final int MSG_UPDATE_STATUS = 1;
     private static final int MSG_UPDATE_DATA = 2;
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_UPDATE_STATUS:
-                    statusView.setText((String) msg.obj);
-                    break;
-                case MSG_UPDATE_DATA:
-                    deviceInfo.setText((String) msg.obj);
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,44 +34,29 @@ public class MainActivity extends Activity {
         btnBT = findViewById(R.id.btnBT);
         btnExit = findViewById(R.id.btnExit);
 
+        mHandler = new Handler(Looper.getMainLooper());
         serial = SerialManager.getInstance(this);
-        serial.setListener(new SerialManager.DataListener() {
-            @Override
-            public void onData(String line) {
-                Message msg = Message.obtain();
-                msg.what = MSG_UPDATE_DATA;
-                msg.obj = line;
-                mHandler.sendMessage(msg);
-            }
-            @Override
-            public void onConnected(boolean isConnected, String info) {
-                Message msg = Message.obtain();
-                msg.what = MSG_UPDATE_STATUS;
-                msg.obj = isConnected ? "CONNECTED @ 115200" : "DISCONNECTED";
-                mHandler.sendMessage(msg);
-            }
-        });
+        serial.setListener(new MT2DataListener(mHandler));
 
-        btnConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { connectDevice(); }
+        btnConnect.setOnClickListener(new ClickListener() {
+            @Override public void onClick(View v) { connectDevice(); }
         });
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { startScan(); }
+        btnScan.setOnClickListener(new ClickListener() {
+            @Override public void onClick(View v) { startScan(); }
         });
-        btnAttack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { startAttack(); }
+        btnAttack.setOnClickListener(new ClickListener() {
+            @Override public void onClick(View v) { startAttack(); }
         });
-        btnBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { startBluetooth(); }
+        btnBT.setOnClickListener(new ClickListener() {
+            @Override public void onClick(View v) { startBluetooth(); }
         });
-        btnExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { finish(); }
+        btnExit.setOnClickListener(new ClickListener() {
+            @Override public void onClick(View v) { finish(); }
         });
+    }
+
+    private static abstract class ClickListener implements View.OnClickListener {
+        @Override public abstract void onClick(View v);
     }
 
     private void connectDevice() {
@@ -121,5 +93,29 @@ public class MainActivity extends Activity {
             return;
         }
         startActivity(new Intent(this, BluetoothActivity.class));
+    }
+
+    private static class MT2DataListener implements SerialManager.DataListener {
+        private final Handler handler;
+
+        MT2DataListener(Handler handler) {
+            this.handler = handler;
+        }
+
+        @Override
+        public void onData(String line) {
+            Message msg = Message.obtain();
+            msg.what = MSG_UPDATE_DATA;
+            msg.obj = line;
+            handler.sendMessage(msg);
+        }
+
+        @Override
+        public void onConnected(boolean isConnected, String info) {
+            Message msg = Message.obtain();
+            msg.what = MSG_UPDATE_STATUS;
+            msg.obj = isConnected ? "CONNECTED @ 115200" : "DISCONNECTED";
+            handler.sendMessage(msg);
+        }
     }
 }
