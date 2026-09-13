@@ -18,11 +18,6 @@ public class MainActivity extends Activity {
     private SerialManager serial;
     private Handler mHandler;
 
-    private static abstract class ClickListener implements View.OnClickListener {
-        @Override public abstract void onClick(View v);
-    }
-
-
     private static final int MSG_UPDATE_STATUS = 1;
     private static final int MSG_UPDATE_DATA = 2;
 
@@ -60,4 +55,7 @@ public class MainActivity extends Activity {
         });
     }
 
+    private static abstract class ClickListener implements View.OnClickListener {
+        @Override public abstract void onClick(View v);
+    }
 }
