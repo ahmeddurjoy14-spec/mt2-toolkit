@@ -18,6 +18,11 @@ public class MainActivity extends Activity {
     private SerialManager serial;
     private Handler mHandler;
 
+    private static abstract class ClickListener implements View.OnClickListener {
+        @Override public abstract void onClick(View v);
+    }
+
+
     private static final int MSG_UPDATE_STATUS = 1;
     private static final int MSG_UPDATE_DATA = 2;
 
@@ -53,8 +58,6 @@ public class MainActivity extends Activity {
         btnExit.setOnClickListener(new ClickListener() {
             @Override public void onClick(View v) { finish(); }
         });
-    
-    private static abstract class ClickListener implements android.view.View.OnClickListener {
-        @Override public abstract void onClick(android.view.View v);
     }
+
 }
